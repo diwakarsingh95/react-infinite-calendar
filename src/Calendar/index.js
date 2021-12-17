@@ -73,6 +73,7 @@ export default class Calendar extends Component {
   		showWeekdays: PropTypes.bool,
       todayHelperRowOffset: PropTypes.number,
     }),
+    focusOn: PropTypes.string,
     height: PropTypes.number,
     keyboardSupport: PropTypes.bool,
     locale: PropTypes.shape({
@@ -117,6 +118,15 @@ export default class Calendar extends Component {
 
     if (autoFocus) {
       this.node.focus();
+    }
+  }
+  componentDidUpdate(prevProps) {
+    const { focusOn, selected: { start, end } } = this.props
+    console.log('focusOn:   ', focusOn)
+    if (focusOn && focusOn !== prevProps.focusOn) {
+    console.log('focusOn::EXEC   ')
+      if (focusOn === 'depart' && start) this.scrollToDate(new Date(start), -40, true)
+      else if (focusOn === 'return' && end) this.scrollToDate(new Date(end), -40, true)
     }
   }
   componentWillUpdate(nextProps, nextState) {

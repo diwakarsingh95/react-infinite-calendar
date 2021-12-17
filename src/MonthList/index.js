@@ -58,9 +58,10 @@ export default class MonthList extends Component {
     if (!this.monthHeights[index]) {
       let {locale: {weekStartsOn}, months, rowHeight} = this.props;
       let {month, year} = months[index];
+      let { rows } = this.memoize(`${year}:${month}`);
       let weeks = getWeeksInMonth(month, year, weekStartsOn, index === months.length - 1);
       let height = weeks * rowHeight;
-      this.monthHeights[index] = height;
+      this.monthHeights[index] = height + (rows[rows.length - 1].length === 7 ? 69 : 125);
     }
 
     return this.monthHeights[index];
@@ -81,8 +82,11 @@ export default class MonthList extends Component {
   getDateOffset(date) {
     const {min, rowHeight, locale: {weekStartsOn}, height} = this.props;
     const weeks = getWeek(startOfMonth(min), parse(date), weekStartsOn);
+    console.log('Height:  ', height)
+    console.log('Weeks:  ', weeks)
+    console.log('getDateOffset::  ', weeks * rowHeight + 115 - (height - rowHeight/2) / 2)
 
-    return weeks * rowHeight - (height - rowHeight/2) / 2;
+    return weeks * rowHeight + weeks / 5 * 125 - (height - rowHeight/2) / 2;
   }
 
   scrollToDate = (date, offset = 0, ...rest) => {
@@ -137,6 +141,8 @@ export default class MonthList extends Component {
     let key = `${year}:${month}`;
     let {date, rows} = this.memoize(key);
 
+    console.log('Index:  ', index)
+
     return (
       <Month
         key={key}
@@ -153,7 +159,7 @@ export default class MonthList extends Component {
         showOverlay={showOverlay}
         today={today}
         theme={theme}
-        style={style}
+        style={{ ...style }}
         locale={locale}
         passThrough={passThrough}
         {...passThrough.Month}

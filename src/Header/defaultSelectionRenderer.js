@@ -1,26 +1,29 @@
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import styles from './Header.scss';
 import animation from './Animation.scss';
 
-export default function defaultSelectionRenderer(value, {
-  display,
-  key,
-  locale: {locale},
-  dateFormat,
-  onYearClick,
-  scrollToDate,
-  setDisplay,
-  shouldAnimate,
-}) {
+export default function defaultSelectionRenderer(
+  value,
+  {
+    display,
+    key,
+    locale: { locale },
+    dateFormat,
+    onYearClick,
+    scrollToDate,
+    setDisplay,
+    shouldAnimate,
+  }
+) {
   const date = parse(value);
   const values = date && [
     {
       active: display === 'years',
-      handleClick: e => {
+      handleClick: (e) => {
         onYearClick(date, e, key);
         setDisplay('years');
       },
@@ -30,7 +33,7 @@ export default function defaultSelectionRenderer(value, {
     },
     {
       active: display === 'days',
-      handleClick: e => {
+      handleClick: (e) => {
         if (display !== 'days') {
           setDisplay('days');
         } else if (date) {
@@ -38,10 +41,11 @@ export default function defaultSelectionRenderer(value, {
         }
       },
       item: 'day',
-      title: display === 'days'
-        ? `Scroll to ${format(date, dateFormat, {locale})}`
-        : null,
-      value: format(date, dateFormat, {locale}),
+      title:
+        display === 'days'
+          ? `Scroll to ${format(date, dateFormat, { locale })}`
+          : null,
+      value: format(date, dateFormat, { locale }),
     },
   ];
 
@@ -49,36 +53,37 @@ export default function defaultSelectionRenderer(value, {
     <div
       key={key}
       className={styles.wrapper}
-      aria-label={format(date, dateFormat + ' YYYY', {locale})}
+      aria-label={format(date, dateFormat + ' YYYY', { locale })}
     >
-      {values.map(({handleClick, item, key, value, active, title}) => {
-        return (
-          <div
-            key={item}
-            className={classNames(styles.dateWrapper, styles[item], {
-              [styles.active]: active,
-            })}
-            title={title}
-          >
-            <CSSTransitionGroup
-              transitionName={animation}
-              transitionEnterTimeout={250}
-              transitionLeaveTimeout={250}
-              transitionEnter={shouldAnimate}
-              transitionLeave={shouldAnimate}
+      <TransitionGroup>
+        {values.map(({ handleClick, item, key, value, active, title }) => {
+          return (
+            <div
+              key={item}
+              className={classNames(styles.dateWrapper, styles[item], {
+                [styles.active]: active,
+              })}
+              title={title}
             >
-              <span
-                key={`${item}-${value}`}
-                className={styles.date}
-                aria-hidden={true}
-                onClick={handleClick}
+              <CSSTransition
+                classNames={animation}
+                timeout={{ exit: 250, enter: 250 }}
+                enter={shouldAnimate}
+                leave={shouldAnimate}
               >
-                {value}
-              </span>
-            </CSSTransitionGroup>
-          </div>
-        );
-      })}
+                <span
+                  key={`${item}-${value}`}
+                  className={styles.date}
+                  aria-hidden={true}
+                  onClick={handleClick}
+                >
+                  {value}
+                </span>
+              </CSSTransition>
+            </div>
+          );
+        })}
+      </TransitionGroup>
     </div>
   );
 }

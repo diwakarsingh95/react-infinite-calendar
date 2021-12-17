@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {emptyFn} from '../utils';
+import { emptyFn } from '../utils';
 import defaultSelectionRenderer from './defaultSelectionRenderer';
 import classNames from 'classnames';
 import styles from './Header.scss';
@@ -24,7 +24,7 @@ export default class Header extends PureComponent {
   render() {
     let {
       layout,
-      locale: {blank},
+      locale: { blank },
       selected,
       renderSelection,
       theme,
@@ -40,10 +40,11 @@ export default class Header extends PureComponent {
           color: theme.textColor.active,
         }}
       >
-        {
-          selected && renderSelection(selected, this.props) ||
-          <div className={classNames(styles.wrapper, styles.blank)}>{blank}</div>
-        }
+        {(selected && renderSelection(selected, this.props)) || (
+          <div className={classNames(styles.wrapper, styles.blank)}>
+            {blank}
+          </div>
+        )}
       </div>
     );
   }

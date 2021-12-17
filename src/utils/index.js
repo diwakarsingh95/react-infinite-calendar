@@ -1,4 +1,4 @@
-import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
+import getScrollbarSize from 'dom-helpers/scrollbarSize';
 import getDaysInMonth from 'date-fns/get_days_in_month';
 import getDay from 'date-fns/get_day';
 import isAfter from 'date-fns/is_after';
@@ -60,6 +60,12 @@ export function getWeek(yearStart, date, weekStartsOn) {
   const yearStartDate = (typeof yearStart === 'number')
     ? new Date(yearStart, 0, 1) // 1st Jan of the Year
     : yearStart;
+
+  console.log('date:   ', date)
+  console.log('yearStartDate::  ', yearStartDate)
+  console.log('(date - yearStartDate) / (60 * 60 * 24 * 1000):::   ', (date - yearStartDate) / (60 * 60 * 24 * 1000))
+  console.log('yearStartDate.getDay()::   ', yearStartDate.getDay())
+  console.log('weekStartsOn:::  ', weekStartsOn)
 
   return Math.ceil(
     (Math.round((date - yearStartDate) / (60 * 60 * 24 * 1000)) + yearStartDate.getDay() + 1 - weekStartsOn) / 7
