@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VirtualList from 'react-tiny-virtual-list';
 import classNames from 'classnames';
-import {emptyFn, getMonthsForYear} from '../utils';
+import { emptyFn, getMonthsForYear } from '../utils';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/is_after';
 import isBefore from 'date-fns/is_before';
@@ -34,12 +34,7 @@ export default class Years extends Component {
   };
 
   handleClick(date, e) {
-    let {
-      hideOnSelect,
-      onSelect,
-      setDisplay,
-      scrollToDate,
-    } = this.props;
+    let { hideOnSelect, onSelect, setDisplay, scrollToDate } = this.props;
 
     onSelect(date, e, (date) => scrollToDate(date));
 
@@ -49,7 +44,16 @@ export default class Years extends Component {
   }
 
   renderMonths(year) {
-    const {locale: {locale}, selected, theme, today, min, max, minDate, maxDate} = this.props;
+    const {
+      locale: { locale },
+      selected,
+      theme,
+      today,
+      min,
+      max,
+      minDate,
+      maxDate,
+    } = this.props;
     const months = getMonthsForYear(year, selected.getDate());
 
     return (
@@ -57,21 +61,23 @@ export default class Years extends Component {
         {months.map((date, index) => {
           const isSelected = isSameMonth(date, selected);
           const isCurrentMonth = isSameMonth(date, today);
-          const isDisabled = (
+          const isDisabled =
             isBefore(date, min) ||
             isBefore(date, minDate) ||
             isAfter(date, max) ||
-            isAfter(date, maxDate)
+            isAfter(date, maxDate);
+          const style = Object.assign(
+            {},
+            isSelected && {
+              backgroundColor:
+                typeof theme.selectionColor === 'function'
+                  ? theme.selectionColor(date)
+                  : theme.selectionColor,
+            },
+            isCurrentMonth && {
+              borderColor: theme.todayColor,
+            }
           );
-          const style = Object.assign({}, isSelected && {
-            backgroundColor: (
-              typeof theme.selectionColor === 'function'
-                ? theme.selectionColor(date)
-                : theme.selectionColor
-            ),
-          }, isCurrentMonth && {
-            borderColor: theme.todayColor,
-          });
 
           return (
             <li
@@ -91,7 +97,7 @@ export default class Years extends Component {
               style={style}
               title={`Set date to ${format(date, 'MMMM Do, YYYY')}`}
             >
-              {format(date, 'MMM', {locale})}
+              {format(date, 'MMM', { locale })}
             </li>
           );
         })}
@@ -100,23 +106,25 @@ export default class Years extends Component {
   }
 
   render() {
-    const {height, selected, showMonths, theme, today, width} = this.props;
+    const { height, selected, showMonths, theme, today, width } = this.props;
     const currentYear = today.getFullYear();
     const years = this.props.years.slice(0, this.props.years.length);
     const selectedYearIndex = years.indexOf(selected.getFullYear());
     const rowHeight = showMonths ? 110 : 50;
-    const heights = years.map((val, index) => index === 0 || index === years.length - 1
-      ? rowHeight + SPACING
-      : rowHeight
+    const heights = years.map((val, index) =>
+      index === 0 || index === years.length - 1
+        ? rowHeight + SPACING
+        : rowHeight
     );
-    const containerHeight = years.length * rowHeight < height + 50
-      ? years.length * rowHeight
-      : height + 50;
+    const containerHeight =
+      years.length * rowHeight < height + 50
+        ? years.length * rowHeight
+        : height + 50;
 
     return (
       <div
         className={styles.root}
-        style={{color: theme.selectionColor, height: height + 50}}
+        style={{ color: theme.selectionColor, height: height + 50 }}
       >
         <VirtualList
           ref="List"
@@ -127,8 +135,8 @@ export default class Years extends Component {
           estimatedItemSize={rowHeight}
           itemSize={(index) => heights[index]}
           scrollToIndex={selectedYearIndex !== -1 ? selectedYearIndex : null}
-          scrollToAlignment='center'
-          renderItem={({index, style}) => {
+          scrollToAlignment="center"
+          renderItem={({ index, style }) => {
             const year = years[index];
             const isActive = index === selectedYearIndex;
 
@@ -142,22 +150,23 @@ export default class Years extends Component {
                   [styles.first]: index === 0,
                   [styles.last]: index === years.length - 1,
                 })}
-                onClick={() => this.handleClick(new Date(selected).setYear(year))}
+                onClick={() =>
+                  this.handleClick(new Date(selected).setYear(year))
+                }
                 title={`Set year to ${year}`}
                 data-year={year}
                 style={Object.assign({}, style, {
-                  color: (
+                  color:
                     typeof theme.selectionColor === 'function'
                       ? theme.selectionColor(new Date(year, 0, 1))
-                      : theme.selectionColor
-                  ),
+                      : theme.selectionColor,
                 })}
               >
                 <label>
                   <span
                     style={
                       !showMonths && year === currentYear
-                        ? {borderColor: theme.todayColor}
+                        ? { borderColor: theme.todayColor }
                         : null
                     }
                   >

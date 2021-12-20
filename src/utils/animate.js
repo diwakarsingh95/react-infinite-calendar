@@ -1,6 +1,6 @@
 function easing(time) {
-  return 1 - (--time) * time * time * time;
-};
+  return 1 - --time * time * time * time;
+}
 
 /**
  * Given a start/end point of a scroll and time elapsed, calculate the scroll position we should be at
@@ -13,7 +13,7 @@ function easing(time) {
 function getValue(start, end, elapsed, duration) {
   if (elapsed > duration) return end;
   return start + (end - start) * easing(elapsed / duration);
-};
+}
 
 /**
  * Smoothly animate between two values
@@ -34,14 +34,14 @@ export default function animate({
   const tick = () => {
     const elapsed = performance.now() - startTime;
 
-    window.requestAnimationFrame(() => onUpdate(
-      getValue(fromValue, toValue, elapsed, duration),
-      // Callback
-      elapsed <= duration
-        ? tick
-        : onComplete
-    ));
+    window.requestAnimationFrame(() =>
+      onUpdate(
+        getValue(fromValue, toValue, elapsed, duration),
+        // Callback
+        elapsed <= duration ? tick : onComplete
+      )
+    );
   };
 
   tick();
-};
+}

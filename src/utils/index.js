@@ -6,7 +6,7 @@ import isBefore from 'date-fns/is_before';
 import isSameDay from 'date-fns/is_same_day';
 import endOfDay from 'date-fns/end_of_day';
 import startOfDay from 'date-fns/start_of_day';
-import {withPropsOnChange} from 'recompose';
+import { withPropsOnChange } from 'recompose';
 
 export const keyCodes = {
   command: 91,
@@ -57,18 +57,17 @@ export function getMonth(year, month, weekStartsOn) {
 }
 
 export function getWeek(yearStart, date, weekStartsOn) {
-  const yearStartDate = (typeof yearStart === 'number')
-    ? new Date(yearStart, 0, 1) // 1st Jan of the Year
-    : yearStart;
-
-  console.log('date:   ', date)
-  console.log('yearStartDate::  ', yearStartDate)
-  console.log('(date - yearStartDate) / (60 * 60 * 24 * 1000):::   ', (date - yearStartDate) / (60 * 60 * 24 * 1000))
-  console.log('yearStartDate.getDay()::   ', yearStartDate.getDay())
-  console.log('weekStartsOn:::  ', weekStartsOn)
+  const yearStartDate =
+    typeof yearStart === 'number'
+      ? new Date(yearStart, 0, 1) // 1st Jan of the Year
+      : yearStart;
 
   return Math.ceil(
-    (Math.round((date - yearStartDate) / (60 * 60 * 24 * 1000)) + yearStartDate.getDay() + 1 - weekStartsOn) / 7
+    (Math.round((date - yearStartDate) / (60 * 60 * 24 * 1000)) +
+      yearStartDate.getDay() +
+      1 -
+      weekStartsOn) /
+      7
   );
 }
 
@@ -138,19 +137,17 @@ export function emptyFn() {
   /* no-op */
 }
 
-export function sanitizeDate(date, {
-  disabledDates = [],
-  disabledDays = [],
-  minDate,
-  maxDate,
-}) {
+export function sanitizeDate(
+  date,
+  { disabledDates = [], disabledDays = [], minDate, maxDate }
+) {
   // Selected date should not be disabled or outside the selectable range
   if (
     !date ||
-    disabledDates.some(disabledDate => isSameDay(disabledDate, date)) ||
-    disabledDays && disabledDays.indexOf(getDay(date)) !== -1 ||
-    minDate && isBefore(date, startOfDay(minDate)) ||
-    maxDate && isAfter(date, endOfDay(maxDate))
+    disabledDates.some((disabledDate) => isSameDay(disabledDate, date)) ||
+    (disabledDays && disabledDays.indexOf(getDay(date)) !== -1) ||
+    (minDate && isBefore(date, startOfDay(minDate))) ||
+    (maxDate && isAfter(date, endOfDay(maxDate)))
   ) {
     return null;
   }
@@ -163,10 +160,13 @@ export function getDateString(year, month, date) {
 }
 
 export function getMonthsForYear(year, day = 1) {
-  return Array.apply(null, Array(12)).map((val, index) => new Date(year, index, day));
+  return Array.apply(null, Array(12)).map(
+    (val, index) => new Date(year, index, day)
+  );
 }
 
-export const withImmutableProps = (props) => withPropsOnChange(() => false, props);
+export const withImmutableProps = (props) =>
+  withPropsOnChange(() => false, props);
 
 export function debounce(callback, wait) {
   let timeout = null;
@@ -174,7 +174,7 @@ export function debounce(callback, wait) {
 
   const later = () => callback.apply(this, callbackArgs);
 
-  return function() {
+  return function () {
     callbackArgs = arguments;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
@@ -190,6 +190,6 @@ export function range(start, stop, step = 1) {
   }
 
   return range;
-};
+}
 
-export {default as animate} from './animate';
+export { default as animate } from './animate';

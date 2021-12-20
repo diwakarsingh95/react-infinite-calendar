@@ -119,7 +119,6 @@ export default class Month extends PureComponent {
             color: '#3a3838',
             lineHeight: '33px',
             margin: 0,
-            padding: '10px',
             textAlign: 'center',
           }}
         >
