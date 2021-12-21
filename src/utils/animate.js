@@ -27,7 +27,7 @@ export default function animate({
   toValue,
   onUpdate,
   onComplete,
-  duration = 600,
+  duration = 600
 }) {
   const startTime = performance.now();
 

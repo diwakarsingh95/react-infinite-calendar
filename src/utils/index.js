@@ -17,7 +17,7 @@ export const keyCodes = {
   left: 37,
   right: 39,
   shift: 16,
-  up: 38,
+  up: 38
 };
 
 /**
@@ -52,7 +52,7 @@ export function getMonth(year, month, weekStartsOn) {
 
   return {
     date: monthDate,
-    rows,
+    rows
   };
 }
 

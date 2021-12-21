@@ -20,15 +20,15 @@ export default withImmutableProps(({ renderSelection }) => ({
           ...props,
           dateFormat,
           key: 'start',
-          shouldAnimate: false,
+          shouldAnimate: false
         })}
         {defaultSelectionRenderer(values.end, {
           ...props,
           dateFormat,
           key: 'end',
-          shouldAnimate: false,
+          shouldAnimate: false
         })}
       </div>
     );
-  },
+  }
 }));

@@ -6,14 +6,14 @@ import styles from './Weekdays.scss';
 export default class Weekdays extends PureComponent {
   static propTypes = {
     locale: PropTypes.object,
-    theme: PropTypes.object,
+    theme: PropTypes.object
   };
 
   render() {
     const { weekdays, weekStartsOn, theme } = this.props;
     const orderedWeekdays = [
       ...weekdays.slice(weekStartsOn, 7),
-      ...weekdays.slice(0, weekStartsOn),
+      ...weekdays.slice(0, weekStartsOn)
     ];
 
     return (
@@ -22,7 +22,7 @@ export default class Weekdays extends PureComponent {
         style={{
           backgroundColor: theme.weekdayColor,
           color: theme.textColor.active,
-          paddingRight: scrollbarSize,
+          paddingRight: scrollbarSize
         }}
         aria-hidden={true}
       >

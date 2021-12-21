@@ -26,11 +26,11 @@ export default class Years extends Component {
     setDisplay: PropTypes.func,
     theme: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    years: PropTypes.array,
+    years: PropTypes.array
   };
   static defaultProps = {
     onSelect: emptyFn,
-    showMonths: true,
+    showMonths: true
   };
 
   handleClick(date, e) {
@@ -52,7 +52,7 @@ export default class Years extends Component {
       min,
       max,
       minDate,
-      maxDate,
+      maxDate
     } = this.props;
     const months = getMonthsForYear(year, selected.getDate());
 
@@ -72,10 +72,10 @@ export default class Years extends Component {
               backgroundColor:
                 typeof theme.selectionColor === 'function'
                   ? theme.selectionColor(date)
-                  : theme.selectionColor,
+                  : theme.selectionColor
             },
             isCurrentMonth && {
-              borderColor: theme.todayColor,
+              borderColor: theme.todayColor
             }
           );
 
@@ -92,7 +92,7 @@ export default class Years extends Component {
               className={classNames(styles.month, {
                 [styles.selected]: isSelected,
                 [styles.currentMonth]: isCurrentMonth,
-                [styles.disabled]: isDisabled,
+                [styles.disabled]: isDisabled
               })}
               style={style}
               title={`Set date to ${format(date, 'MMMM Do, YYYY')}`}
@@ -148,7 +148,7 @@ export default class Years extends Component {
                   [styles.currentYear]: !showMonths && year === currentYear,
                   [styles.withMonths]: showMonths,
                   [styles.first]: index === 0,
-                  [styles.last]: index === years.length - 1,
+                  [styles.last]: index === years.length - 1
                 })}
                 onClick={() =>
                   this.handleClick(new Date(selected).setYear(year))
@@ -159,7 +159,7 @@ export default class Years extends Component {
                   color:
                     typeof theme.selectionColor === 'function'
                       ? theme.selectionColor(new Date(year, 0, 1))
-                      : theme.selectionColor,
+                      : theme.selectionColor
                 })}
               >
                 <label>

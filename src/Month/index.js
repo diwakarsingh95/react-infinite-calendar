@@ -21,7 +21,7 @@ export default class Month extends PureComponent {
       selected,
       today,
       theme,
-      passThrough,
+      passThrough
     } = this.props;
     const currentYear = today.getFullYear();
     const year = monthDate.getFullYear();
@@ -84,7 +84,7 @@ export default class Month extends PureComponent {
         <ul
           key={`Row-${i}`}
           className={classNames(styles.row, {
-            [styles.partial]: row.length !== 7,
+            [styles.partial]: row.length !== 7
           })}
           style={{ height: rowHeight }}
           role="row"
@@ -107,7 +107,7 @@ export default class Month extends PureComponent {
       rowHeight,
       showOverlay,
       style,
-      theme,
+      theme
     } = this.props;
     const dateFormat = isSameYear(monthDate, today) ? 'MMMM' : 'MMMM YYYY';
 
@@ -119,7 +119,7 @@ export default class Month extends PureComponent {
             color: '#3a3838',
             lineHeight: '33px',
             margin: 0,
-            textAlign: 'center',
+            textAlign: 'center'
           }}
         >
           {format(monthDate, 'MMMM YYYY', { locale })}
@@ -129,7 +129,7 @@ export default class Month extends PureComponent {
           {showOverlay && (
             <label
               className={classNames(styles.label, {
-                [styles.partialFirstRow]: rows[0].length !== 7,
+                [styles.partialFirstRow]: rows[0].length !== 7
               })}
               style={{ backgroundColor: theme.overlayColor }}
             >

@@ -1,9 +1,9 @@
 {
-  "extends": ["react-app"],
+  "extends": ["react-app", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "indent": ["error", 2, { "SwitchCase": 1 }],
-    "semi": ["error", "always"],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "semi": ["warn", "always"],
     "no-mixed-operators": [
       "warn",
       {
@@ -15,8 +15,8 @@
         "allowSamePrecedence": true
       }
     ],
-    "no-unused-vars": "error",
-    "prettier/prettier": "error",
+    "no-unused-vars": "warn",
+    "prettier/prettier": "warn",
     "jsx-a11y/href-no-hash": "off"
   }
 }

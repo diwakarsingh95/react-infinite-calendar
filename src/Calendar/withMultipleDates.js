@@ -7,12 +7,12 @@ import parse from 'date-fns/parse';
 
 // Enhance Day component to display selected state based on an array of selected dates
 export const enhanceDay = withPropsOnChange(['selected'], (props) => ({
-  isSelected: props.selected.indexOf(props.date) !== -1,
+  isSelected: props.selected.indexOf(props.date) !== -1
 }));
 
 // Enhance year component
 const enhanceYears = withProps(({ displayDate }) => ({
-  selected: displayDate ? parse(displayDate) : null,
+  selected: displayDate ? parse(displayDate) : null
 }));
 
 // Enhancer to handle selecting and displaying multiple dates
@@ -23,26 +23,26 @@ export const withMultipleDates = compose(
   withImmutableProps(({ DayComponent, HeaderComponent, YearsComponent }) => ({
     DayComponent: enhanceDay(DayComponent),
     HeaderComponent: enhanceHeader(HeaderComponent),
-    YearsComponent: enhanceYears(YearsComponent),
+    YearsComponent: enhanceYears(YearsComponent)
   })),
   withProps(
     ({ displayDate, onSelect, setDisplayDate, scrollToDate, ...props }) => ({
       passThrough: {
         Day: {
-          onClick: (date) => handleSelect(date, { onSelect, setDisplayDate }),
+          onClick: (date) => handleSelect(date, { onSelect, setDisplayDate })
         },
         Header: {
-          setDisplayDate,
+          setDisplayDate
         },
         Years: {
           displayDate,
           onSelect: (year, e, callback) => handleYearSelect(year, callback),
-          selected: displayDate,
-        },
+          selected: displayDate
+        }
       },
       selected: props.selected
         .filter((date) => sanitizeDate(date, props))
-        .map((date) => format(date, 'YYYY-MM-DD')),
+        .map((date) => format(date, 'YYYY-MM-DD'))
     })
   )
 );

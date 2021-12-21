@@ -6,16 +6,16 @@ import isBefore from 'date-fns/is_before';
 import { keyCodes, withImmutableProps } from '../utils';
 
 const enhanceDay = withProps((props) => ({
-  isHighlighted: props.highlightedDate === props.date,
+  isHighlighted: props.highlightedDate === props.date
 }));
 
 export const withKeyboardSupport = compose(
   withState('highlightedDate', 'setHighlight'),
   withImmutableProps(({ DayComponent }) => ({
-    DayComponent: enhanceDay(DayComponent),
+    DayComponent: enhanceDay(DayComponent)
   })),
   withHandlers({
-    onKeyDown: (props) => (e) => handleKeyDown(e, props),
+    onKeyDown: (props) => (e) => handleKeyDown(e, props)
   }),
   withProps(
     ({ highlightedDate, onKeyDown, onSelect, passThrough, setHighlight }) => ({
@@ -27,10 +27,10 @@ export const withKeyboardSupport = compose(
           onClick: (date) => {
             setHighlight(null);
             passThrough.Day.onClick(date);
-          },
+          }
         },
-        rootNode: { onKeyDown },
-      },
+        rootNode: { onKeyDown }
+      }
     })
   )
 );
@@ -40,10 +40,10 @@ function handleKeyDown(e, props) {
     minDate,
     maxDate,
     passThrough: {
-      Day: { onClick },
+      Day: { onClick }
     },
     setScrollDate,
-    setHighlight,
+    setHighlight
   } = props;
   const highlightedDate = getInitialDate(props);
   let delta = 0;

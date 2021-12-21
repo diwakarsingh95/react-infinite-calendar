@@ -16,7 +16,7 @@ export default function defaultSelectionRenderer(
     onYearClick,
     scrollToDate,
     setDisplay,
-    shouldAnimate,
+    shouldAnimate
   }
 ) {
   const date = parse(value);
@@ -29,7 +29,7 @@ export default function defaultSelectionRenderer(
       },
       item: 'year',
       title: display === 'days' ? `Change year` : null,
-      value: date.getFullYear(),
+      value: date.getFullYear()
     },
     {
       active: display === 'days',
@@ -45,8 +45,8 @@ export default function defaultSelectionRenderer(
         display === 'days'
           ? `Scroll to ${format(date, dateFormat, { locale })}`
           : null,
-      value: format(date, dateFormat, { locale }),
-    },
+      value: format(date, dateFormat, { locale })
+    }
   ];
 
   return (
@@ -61,7 +61,7 @@ export default function defaultSelectionRenderer(
             <div
               key={item}
               className={classNames(styles.dateWrapper, styles[item], {
-                [styles.active]: active,
+                [styles.active]: active
               })}
               title={title}
             >

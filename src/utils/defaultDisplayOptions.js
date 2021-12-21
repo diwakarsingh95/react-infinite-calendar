@@ -8,5 +8,5 @@ module.exports = {
   showOverlay: true,
   showTodayHelper: true,
   showWeekdays: true,
-  todayHelperRowOffset: 4,
+  todayHelperRowOffset: 4
 };

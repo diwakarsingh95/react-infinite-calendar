@@ -20,7 +20,7 @@ export default class Day extends PureComponent {
       locale: { todayLabel },
       monthShort,
       theme: { textColor },
-      selectionStyle,
+      selectionStyle
     } = this.props;
 
     return (
@@ -30,7 +30,7 @@ export default class Day extends PureComponent {
         style={{
           backgroundColor: this.selectionColor,
           color: textColor.active,
-          ...selectionStyle,
+          ...selectionStyle
         }}
       >
         <span className={styles.month}>
@@ -52,9 +52,8 @@ export default class Day extends PureComponent {
       isHighlighted,
       isToday,
       isSelected,
-      monthShort,
       theme: { selectionColor, todayColor },
-      year,
+      year
     } = this.props;
     let color;
 
@@ -77,7 +76,7 @@ export default class Day extends PureComponent {
             [styles.highlighted]: isHighlighted,
             [styles.selected]: isSelected,
             [styles.disabled]: isDisabled,
-            [styles.enabled]: !isDisabled,
+            [styles.enabled]: !isDisabled
           },
           className
         )}

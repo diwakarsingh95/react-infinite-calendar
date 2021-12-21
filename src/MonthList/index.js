@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VirtualList from 'react-tiny-virtual-list';
 import classNames from 'classnames';
-import { emptyFn, getMonth, getWeek, getWeeksInMonth, animate } from '../utils';
-import parse from 'date-fns/parse';
-import startOfMonth from 'date-fns/start_of_month';
+import { emptyFn, getMonth, getWeeksInMonth, animate } from '../utils';
 import Month from '../Month';
 import styles from './MonthList.scss';
-import { isDate, isValid } from 'date-fns';
 
 const AVERAGE_ROWS_PER_MONTH = 5;
 
@@ -30,16 +27,16 @@ export default class MonthList extends Component {
     showOverlay: PropTypes.bool,
     theme: PropTypes.object,
     today: PropTypes.instanceOf(Date),
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
   state = {
-    scrollTop: this.getDateOffset(this.props.scrollDate),
+    scrollTop: this.getDateOffset(this.props.scrollDate)
   };
   cache = {};
   memoize = function (param) {
     if (!this.cache[param]) {
       const {
-        locale: { weekStartsOn },
+        locale: { weekStartsOn }
       } = this.props;
       const [year, month] = param.split(':');
       const result = getMonth(year, month, weekStartsOn);
@@ -58,7 +55,7 @@ export default class MonthList extends Component {
       let {
         locale: { weekStartsOn },
         months,
-        rowHeight,
+        rowHeight
       } = this.props;
       let { month, year } = months[index];
       let { rows } = this.memoize(`${year}:${month}`);
@@ -83,7 +80,7 @@ export default class MonthList extends Component {
   componentWillReceiveProps({ scrollDate }) {
     if (scrollDate !== this.props.scrollDate) {
       this.setState({
-        scrollTop: this.getDateOffset(scrollDate),
+        scrollTop: this.getDateOffset(scrollDate)
       });
     }
   }
@@ -96,9 +93,9 @@ export default class MonthList extends Component {
     let dep_date;
     if (selected.start) {
       const dateToScroll =
-        focusOnDate == 'depart' ? selected.start : selected.end;
+        focusOnDate === 'depart' ? selected.start : selected.end;
       dep_date = new Date(dateToScroll).toLocaleDateString('en-US', {
-        timeZone: 'UTC',
+        timeZone: 'UTC'
       });
     }
     let pixelToScroll = 0;
@@ -110,35 +107,35 @@ export default class MonthList extends Component {
     let yearIterate = today_year;
     for (let i = 1; i <= month_iterate; i++) {
       let j = i % 13;
-      if (new Date(yearIterate, today_month - 1 + j, 0).getDate() == 31) {
+      if (new Date(yearIterate, today_month - 1 + j, 0).getDate() === 31) {
         if (new Date(yearIterate, today_month - 2 + j, 1).getDay() <= 4) {
           pixelToScroll += 329;
         } else {
           pixelToScroll += 385;
         }
       } else if (
-        new Date(yearIterate, today_month - 1 + j, 0).getDate() == 30
+        new Date(yearIterate, today_month - 1 + j, 0).getDate() === 30
       ) {
-        if (new Date(yearIterate, today_month - 2 + j, 1).getDay() == 6) {
+        if (new Date(yearIterate, today_month - 2 + j, 1).getDay() === 6) {
           pixelToScroll += 385;
         } else {
           pixelToScroll += 329;
         }
       } else {
         if (
-          new Date(yearIterate, today_month - 2 + j, 1).getDay() == 0 &&
-          new Date(yearIterate, today_month - 1 + j, 0).getDate() == 28
+          new Date(yearIterate, today_month - 2 + j, 1).getDay() === 0 &&
+          new Date(yearIterate, today_month - 1 + j, 0).getDate() === 28
         ) {
           pixelToScroll += 274;
         } else {
           pixelToScroll += 329;
         }
       }
-      yearIterate = j == 12 ? yearIterate + 1 : yearIterate;
+      yearIterate = j === 12 ? yearIterate + 1 : yearIterate;
     }
     let rowsToScrollReturnPixels = 0;
     let return3rowsMinus = 0;
-    if (focusOnDate == 'return') {
+    if (focusOnDate === 'return') {
       let return_date = parseInt(String(selected.end).split('-')[2]);
       let firstDayOn = new Date(
         new Date(selected.end).getFullYear(),
@@ -148,16 +145,16 @@ export default class MonthList extends Component {
       let rowsToScroll =
         return_date - (6 - firstDayOn + 1) <= 0
           ? 0
-          : (return_date - (6 - firstDayOn + 1)) % 7 == 0
+          : (return_date - (6 - firstDayOn + 1)) % 7 === 0
             ? parseInt((return_date - (6 - firstDayOn + 1)) / 7)
             : parseInt((return_date - (6 - firstDayOn + 1)) / 7) + 1;
       rowsToScrollReturnPixels = rowsToScroll * 56 + 33;
       return3rowsMinus =
         rowsToScroll >= 4
           ? 56 * 4
-          : rowsToScroll == 3
-          ? 56 * 3 + 33
-          : 56 * 3 + 50;
+          : rowsToScroll === 3
+            ? 56 * 3 + 33
+            : 56 * 3 + 50;
     }
     return pixelToScroll + rowsToScrollReturnPixels - return3rowsMinus;
   }
@@ -184,7 +181,7 @@ export default class MonthList extends Component {
         toValue: scrollTop,
         onUpdate: (scrollTop, callback) =>
           this.setState({ scrollTop }, callback),
-        onComplete,
+        onComplete
       });
     } else {
       window.requestAnimationFrame(() => {
@@ -208,7 +205,7 @@ export default class MonthList extends Component {
       selected,
       showOverlay,
       theme,
-      today,
+      today
     } = this.props;
 
     let { month, year } = months[index];
@@ -247,7 +244,7 @@ export default class MonthList extends Component {
       overscanMonthCount,
       months,
       rowHeight,
-      width,
+      width
     } = this.props;
     const { scrollTop } = this.state;
 

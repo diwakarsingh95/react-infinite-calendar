@@ -18,7 +18,7 @@ import startOfDay from 'date-fns/start_of_day';
 
 const styles = {
   container: require('./Container.scss'),
-  day: require('../Day/Day.scss'),
+  day: require('../Day/Day.scss')
 };
 
 export const withDefaultProps = defaultProps({
@@ -41,7 +41,7 @@ export const withDefaultProps = defaultProps({
   rowHeight: 56,
   tabIndex: 1,
   width: 400,
-  YearsComponent: Years,
+  YearsComponent: Years
 });
 
 export default class Calendar extends Component {
@@ -51,7 +51,7 @@ export default class Calendar extends Component {
     this.updateYears(props);
 
     this.state = {
-      display: props.display,
+      display: props.display
     };
   }
   static propTypes = {
@@ -71,7 +71,7 @@ export default class Calendar extends Component {
       showOverlay: PropTypes.bool,
       showTodayHelper: PropTypes.bool,
       showWeekdays: PropTypes.bool,
-      todayHelperRowOffset: PropTypes.number,
+      todayHelperRowOffset: PropTypes.number
     }),
     focusOn: PropTypes.string,
     height: PropTypes.number,
@@ -81,10 +81,10 @@ export default class Calendar extends Component {
       headerFormat: PropTypes.string,
       todayLabel: PropTypes.shape({
         long: PropTypes.string,
-        short: PropTypes.string,
+        short: PropTypes.string
       }),
       weekdays: PropTypes.arrayOf(PropTypes.string),
-      weekStartsOn: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]),
+      weekStartsOn: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6])
     }),
     max: PropTypes.instanceOf(Date),
     maxDate: PropTypes.instanceOf(Date),
@@ -99,19 +99,19 @@ export default class Calendar extends Component {
       floatingNav: PropTypes.shape({
         background: PropTypes.string,
         chevron: PropTypes.string,
-        color: PropTypes.string,
+        color: PropTypes.string
       }),
       headerColor: PropTypes.string,
       selectionColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
       textColor: PropTypes.shape({
         active: PropTypes.string,
-        default: PropTypes.string,
+        default: PropTypes.string
       }),
       todayColor: PropTypes.string,
-      weekdayColor: PropTypes.string,
+      weekdayColor: PropTypes.string
     }),
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    YearsComponent: PropTypes.func,
+    YearsComponent: PropTypes.func
   };
   componentDidMount() {
     let { autoFocus } = this.props;
@@ -221,7 +221,7 @@ export default class Calendar extends Component {
     // We only want to display the months overlay if the user is rapidly scrolling
     if (showOverlay && scrollSpeed > rowHeight && !isScrolling) {
       this.setState({
-        isScrolling: true,
+        isScrolling: true
       });
     }
 
@@ -304,7 +304,7 @@ export default class Calendar extends Component {
       tabIndex,
       width,
       YearsComponent,
-      focusOn,
+      focusOn
     } = this.props;
     const {
       hideYearsOnSelect,
@@ -315,7 +315,7 @@ export default class Calendar extends Component {
       showMonthsForYears,
       showOverlay,
       showTodayHelper,
-      showWeekdays,
+      showWeekdays
     } = this.getDisplayOptions();
     const { display, isScrolling, showToday } = this.state;
     const disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -327,7 +327,7 @@ export default class Calendar extends Component {
       <div
         tabIndex={tabIndex}
         className={classNames(className, styles.container.root, {
-          [styles.container.landscape]: layout === 'landscape',
+          [styles.container.landscape]: layout === 'landscape'
         })}
         style={{ color: theme.textColor.default, width }}
         aria-label="Calendar"

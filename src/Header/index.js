@@ -8,7 +8,7 @@ import styles from './Header.scss';
 export default class Header extends PureComponent {
   static defaultProps = {
     onYearClick: emptyFn,
-    renderSelection: defaultSelectionRenderer,
+    renderSelection: defaultSelectionRenderer
   };
   static propTypes = {
     dateFormat: PropTypes.string,
@@ -18,7 +18,7 @@ export default class Header extends PureComponent {
     onYearClick: PropTypes.func,
     selected: PropTypes.any,
     shouldAnimate: PropTypes.bool,
-    theme: PropTypes.object,
+    theme: PropTypes.object
   };
 
   render() {
@@ -27,17 +27,17 @@ export default class Header extends PureComponent {
       locale: { blank },
       selected,
       renderSelection,
-      theme,
+      theme
     } = this.props;
 
     return (
       <div
         className={classNames(styles.root, {
-          [styles.landscape]: layout === 'landscape',
+          [styles.landscape]: layout === 'landscape'
         })}
         style={{
           backgroundColor: theme.headerColor,
-          color: theme.textColor.active,
+          color: theme.textColor.active
         }}
       >
         {(selected && renderSelection(selected, this.props)) || (

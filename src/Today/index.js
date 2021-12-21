@@ -13,7 +13,7 @@ export default class Today extends PureComponent {
     scrollToDate: PropTypes.func,
     show: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     theme: PropTypes.object,
-    todayLabel: PropTypes.string,
+    todayLabel: PropTypes.string
   };
 
   scrollToToday = () => {
@@ -29,11 +29,11 @@ export default class Today extends PureComponent {
         className={classNames(styles.root, {
           [styles.show]: show,
           [styles.chevronUp]: show === DIRECTION_UP,
-          [styles.chevronDown]: show === DIRECTION_DOWN,
+          [styles.chevronDown]: show === DIRECTION_DOWN
         })}
         style={{
           backgroundColor: theme.floatingNav.background,
-          color: theme.floatingNav.color,
+          color: theme.floatingNav.color
         }}
         onClick={this.scrollToToday}
         ref="node"

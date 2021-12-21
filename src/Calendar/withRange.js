@@ -13,7 +13,7 @@ let isTouchDevice = false;
 export const EVENT_TYPE = {
   END: 3,
   HOVER: 2,
-  START: 1,
+  START: 1
 };
 
 // Enhance Day component to display selected state based on an array of selected dates
@@ -36,10 +36,10 @@ export const enhanceDay = withPropsOnChange(
         classNames(styles.range, {
           [styles.start]: isStart,
           [styles.betweenRange]: !isStart && !isEnd,
-          [styles.end]: isEnd,
+          [styles.end]: isEnd
         }),
       isSelected,
-      selectionStyle: style,
+      selectionStyle: style
     };
   }
 );
@@ -52,7 +52,7 @@ export const withRange = compose(
   withState('selectionStart', 'setSelectionStart', null),
   withImmutableProps(({ DayComponent, HeaderComponent, YearsComponent }) => ({
     DayComponent: enhanceDay(DayComponent),
-    HeaderComponent: enhanceHeader(HeaderComponent),
+    HeaderComponent: enhanceHeader(HeaderComponent)
   })),
   withProps(
     ({ displayKey, passThrough, selected, setDisplayKey, ...props }) => ({
@@ -65,22 +65,22 @@ export const withRange = compose(
             onMouseOver:
               !isTouchDevice && props.selectionStart
                 ? (e) => handleMouseOver(e, { selected, ...props })
-                : null,
-          },
+                : null
+          }
         },
         Years: {
           selected: selected && selected[displayKey],
           onSelect: (date) =>
-            handleYearSelect(date, { displayKey, selected, ...props }),
+            handleYearSelect(date, { displayKey, selected, ...props })
         },
         Header: {
-          onYearClick: (date, e, key) => setDisplayKey(key || 'start'),
-        },
+          onYearClick: (date, e, key) => setDisplayKey(key || 'start')
+        }
       },
       selected: {
         start: selected && format(selected.start, 'YYYY-MM-DD'),
-        end: selected && format(selected.end, 'YYYY-MM-DD'),
-      },
+        end: selected && format(selected.end, 'YYYY-MM-DD')
+      }
     })
   )
 );
@@ -98,8 +98,8 @@ function handleSelect(
       eventType: EVENT_TYPE.END,
       ...getSortedSelection({
         start: selectionStart,
-        end: date,
-      }),
+        end: date
+      })
     });
     setSelectionStart(null);
   } else {
@@ -120,8 +120,8 @@ function handleMouseOver(e, { onSelect, selectionStart }) {
     eventType: EVENT_TYPE.HOVER,
     ...getSortedSelection({
       start: selectionStart,
-      end: date,
-    }),
+      end: date
+    })
   });
 }
 

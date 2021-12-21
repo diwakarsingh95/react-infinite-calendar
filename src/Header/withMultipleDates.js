@@ -28,10 +28,10 @@ export default withImmutableProps(({ renderSelection, setDisplayDate }) => ({
             ...props,
             key: index,
             scrollToDate,
-            shouldAnimate: false,
+            shouldAnimate: false
           })
         )}
       </Slider>
     );
-  },
+  }
 }));
