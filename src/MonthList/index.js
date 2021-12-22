@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { emptyFn, getMonth, getWeeksInMonth, animate } from '../utils';
 import Month from '../Month';
 import styles from './MonthList.scss';
+import { isValid } from 'date-fns';
 
 const AVERAGE_ROWS_PER_MONTH = 5;
 
@@ -87,6 +88,14 @@ export default class MonthList extends Component {
 
   getDateOffset() {
     const { focusOnDate, selected } = this.props;
+
+    if (
+      focusOnDate === 'return' &&
+      !isValid(new Date(selected.start)) &&
+      !isValid(new Date(selected.end))
+    )
+      return 0;
+
     const date = new Date();
     const today_month = new Date().getMonth() + 1;
     const today_year = new Date().getFullYear();
@@ -146,15 +155,15 @@ export default class MonthList extends Component {
         return_date - (6 - firstDayOn + 1) <= 0
           ? 0
           : (return_date - (6 - firstDayOn + 1)) % 7 === 0
-            ? parseInt((return_date - (6 - firstDayOn + 1)) / 7)
-            : parseInt((return_date - (6 - firstDayOn + 1)) / 7) + 1;
+          ? parseInt((return_date - (6 - firstDayOn + 1)) / 7)
+          : parseInt((return_date - (6 - firstDayOn + 1)) / 7) + 1;
       rowsToScrollReturnPixels = rowsToScroll * 56 + 33;
       return3rowsMinus =
         rowsToScroll >= 4
           ? 56 * 4
           : rowsToScroll === 3
-            ? 56 * 3 + 33
-            : 56 * 3 + 50;
+          ? 56 * 3 + 33
+          : 56 * 3 + 50;
     }
     return pixelToScroll + rowsToScrollReturnPixels - return3rowsMinus;
   }
